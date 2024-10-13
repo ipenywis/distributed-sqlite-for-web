@@ -1,0 +1,29 @@
+# fly.toml app configuration file generated for nextjs-sqlite on 2024-10-12T21:25:54+01:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'nextjs-sqlite'
+primary_region = 'cdg'
+
+[build]
+
+[deploy]
+  strategy = 'rolling'
+
+[[mounts]]
+  source = 'litefs_demo'
+  destination = '/var/lib/litefs'
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = 'off'
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ['app']
+
+[[vm]]
+  cpu_kind = 'shared'
+  cpus = 1
+  memory_mb = 1024
